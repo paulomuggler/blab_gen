@@ -63,9 +63,8 @@ void generate() {
   new PVector(xB1-(base1/2)*cos(teta1), 
   (yB1-(base1/2)*sin(teta1))), base2, teta2);
 
-  fill(0);
-  textSize(96);  
-  text("b lab", 60, 540);
+  fill(TEXT_COLOR);
+  text("blab", 0, height-FONT_SIZE, width, FONT_SIZE);
 }
 
 void project_triangle(PVector p, PVector base_ctr, float base_sz, float base_teta) {
@@ -81,6 +80,9 @@ void project_triangle(PVector p, PVector base_ctr, float base_sz, float base_tet
 
 void setup() {
   size(CANVAS_SIZE, CANVAS_SIZE);
+  textFont(createFont(PFont.list()[0], FONT_SIZE));
+  textSize(FONT_SIZE);
+  textAlign(CENTER);
 }
 
 void draw() {
