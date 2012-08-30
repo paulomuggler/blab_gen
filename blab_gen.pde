@@ -7,13 +7,15 @@ static final int TEXT_COLOR = 0xFF000000;
 static final int TRI0_COLOR = 0x9934A89B;
 static final int TRI1_COLOR = 0xFF77B794;
 
-int canvas_size = 600;
+static final int CANVAS_SIZE = 500;
+static final int FONT_SIZE = 256;
+
 
 void generate() {
 
   fill(BGND_COLOR);
   stroke(BGND_COLOR);
-  rect(0,0,canvas_size,canvas_size);
+  rect(0,0,CANVAS_SIZE,CANVAS_SIZE);
   
   int qx = 1;
   int qy = 1;
@@ -27,23 +29,23 @@ void generate() {
       qteta = -1;
       break;
      case 1:
-       offsetX = canvas_size; qx = -1;
+       offsetX = CANVAS_SIZE; qx = -1;
        break;
       case 2:
         qteta = -1;
-        offsetX = canvas_size; qx = -1;
-        offsetY = canvas_size; qy = -1;
+        offsetX = CANVAS_SIZE; qx = -1;
+        offsetY = CANVAS_SIZE; qy = -1;
         break;
       case 3:
-        offsetY = canvas_size; qy = -1;
+        offsetY = CANVAS_SIZE; qy = -1;
         break;
   }
   
-  float x1 = offsetX + qx*random(canvas_size/12, 2*canvas_size/12);
-  float y1 = offsetY+ qy*random(canvas_size/12, 2*canvas_size/12);
+  float x1 = offsetX + qx*random(CANVAS_SIZE/12, 2*CANVAS_SIZE/12);
+  float y1 = offsetY+ qy*random(CANVAS_SIZE/12, 2*CANVAS_SIZE/12);
  
-  float xB1 = (canvas_size-offsetX)-qx*random(canvas_size/4, 2*canvas_size/4);
-  float yB1 = (canvas_size-offsetY)-qy*random(canvas_size/4, 2*canvas_size/4);
+  float xB1 = (CANVAS_SIZE-offsetX)-qx*random(CANVAS_SIZE/4, 2*CANVAS_SIZE/4);
+  float yB1 = (CANVAS_SIZE-offsetY)-qy*random(CANVAS_SIZE/4, 2*CANVAS_SIZE/4);
 
   
   float base1 = 150;
@@ -77,7 +79,7 @@ void project_triangle(PVector p, PVector base_ctr, float base_sz, float base_tet
 }
 
 void setup() {
-  size(canvas_size,canvas_size);
+  size(CANVAS_SIZE,CANVAS_SIZE);
 }
 
 void draw(){
