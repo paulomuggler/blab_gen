@@ -1,13 +1,18 @@
-int hvy_clr = 0x9934A89B; // petrol green
-int light_clr = 0xFF77B794; // olive green
-int bg_clr = 0xFFF6F16F; // light yellow
+// colors are #AARRGGBB
+// light yellow: 0xFFF6F16F
+// petrol green: 0x9934A89B
+// olive green:  0xFF77B794
+static final int BGND_COLOR = 0xFFF6F16F;
+static final int TEXT_COLOR = 0xFF000000;
+static final int TRI0_COLOR = 0x9934A89B;
+static final int TRI1_COLOR = 0xFF77B794;
 
 int canvas_size = 600;
 
 void generate() {
 
-  fill(bg_clr);
-  stroke(bg_clr);
+  fill(BGND_COLOR);
+  stroke(BGND_COLOR);
   rect(0,0,canvas_size,canvas_size);
   
   int qx = 1;
@@ -62,8 +67,8 @@ void generate() {
 
 void project_triangle(PVector p, PVector base_ctr, float base_sz, float base_teta){
   
-  fill(hvy_clr);
-  stroke(hvy_clr);
+  fill(TRI0_COLOR);
+  stroke(TRI0_COLOR);
   
   PVector p2 = new PVector(base_ctr.x+(base_sz/2)*cos(base_teta), base_ctr.y+(base_sz/2)*sin(base_teta));
   PVector p3 = new PVector(base_ctr.x-(base_sz/2)*cos(base_teta), base_ctr.y-(base_sz/2)*sin(base_teta));
