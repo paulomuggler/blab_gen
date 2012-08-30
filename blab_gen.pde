@@ -1,102 +1,110 @@
-int hvy_clr = 0x9934A89B; // petrol green
-int light_clr = 0xFF77B794; // olive green
-int bg_clr = 0xFFF6F16F; // light yellow
+// colors are #AARRGGBB
+// light yellow: 0xFFF6F16F
+// petrol green: 0x9934A89B
+// olive green:  0xFF77B794
+static final int BGND_COLOR = 0xFFF6F16F;
+static final int TEXT_COLOR = 0xFF000000;
+static final int TRI0_COLOR = 0x9934A89B;
+static final int TRI1_COLOR = 0xFF77B794;
 
-int canvas_size = 600;
+static final int CANVAS_SIZE = 500;
+static final int FONT_SIZE = 256;
+
+PImage textImage;
 
 void generate() {
 
-  fill(bg_clr);
-  stroke(bg_clr);
-  rect(0,0,canvas_size,canvas_size);
-  
+  background(BGND_COLOR);
+
   int qx = 1;
   int qy = 1;
   int qteta = 1;
-  
+
   int offsetX = 0;
   int offsetY = 0;
-  
-  switch(int(random(0,4))){
-    case 0:
-      qteta = -1;
-      break;
-     case 1:
-       offsetX = canvas_size; qx = -1;
-       break;
-      case 2:
-        qteta = -1;
-        offsetX = canvas_size; qx = -1;
-        offsetY = canvas_size; qy = -1;
-        break;
-      case 3:
-        offsetY = canvas_size; qy = -1;
-        break;
+
+  switch(int(random(0, 4))) {
+  case 0:
+    qteta = -1;
+    break;
+  case 1:
+    offsetX = CANVAS_SIZE; 
+    qx = -1;
+    break;
+  case 2:
+    qteta = -1;
+    offsetX = CANVAS_SIZE; 
+    qx = -1;
+    offsetY = CANVAS_SIZE; 
+    qy = -1;
+    break;
+  case 3:
+    offsetY = CANVAS_SIZE; 
+    qy = -1;
+    break;
   }
-  
-  float x1 = offsetX + qx*random(canvas_size/12, 2*canvas_size/12);
-  float y1 = offsetY+ qy*random(canvas_size/12, 2*canvas_size/12);
- 
-  float xB1 = (canvas_size-offsetX)-qx*random(canvas_size/4, 2*canvas_size/4);
-  float yB1 = (canvas_size-offsetY)-qy*random(canvas_size/4, 2*canvas_size/4);
 
-  
+  float x1 = offsetX + qx*random(CANVAS_SIZE/12, 2*CANVAS_SIZE/12);
+  float y1 = offsetY+ qy*random(CANVAS_SIZE/12, 2*CANVAS_SIZE/12);
+
+  float xB1 = (CANVAS_SIZE-offsetX)-qx*random(CANVAS_SIZE/4, 2*CANVAS_SIZE/4);
+  float yB1 = (CANVAS_SIZE-offsetY)-qy*random(CANVAS_SIZE/4, 2*CANVAS_SIZE/4);
+
+
   float base1 = 150;
-  float teta1 = qteta*random(0,PI/2);
-  
+  float teta1 = qteta*random(0, PI/2);
+
   float base2 = 200f;
-  float teta2 = qteta*random(0,PI/2);
-  
-  project_triangle(new Point(x1, y1),
-                        new Point(xB1,yB1), base1, teta1);
-                        
-  project_triangle(new Point(x1, y1), 
-                        new Point(xB1-(base1/2)*cos(teta1),
-                                 (yB1-(base1/2)*sin(teta1))), base2, teta2);
+  float teta2 = qteta*random(0, PI/2);
 
-  fill(0);
-  textSize(96);  
-  text("b lab", 60, 540);
+  project_triangle(new PVector(x1, y1), 
+  new PVector(xB1, yB1), 
+  base1, teta1);
 
+  project_triangle(new PVector(x1, y1), 
+  new PVector(xB1-(base1/2)*cos(teta1), (yB1-(base1/2)*sin(teta1))), 
+  base2, teta2);
+
+  fill(TEXT_COLOR);
+  // acho que o texto poderia ser dinamico também. mudar a cor dele...
+  //    por enquanto estou usando um png com transparencia
+  //text("blab", 0, height-FONT_SIZE, width, FONT_SIZE);
 }
 
-void project_triangle(Point p, Point base_ctr, float base_sz, float base_teta){
-  
-  fill(hvy_clr);
-  stroke(hvy_clr);
-  
-  Point p2 = new Point(base_ctr.x+(base_sz/2)*cos(base_teta), base_ctr.y+(base_sz/2)*sin(base_teta));
-  Point p3 = new Point(base_ctr.x-(base_sz/2)*cos(base_teta), base_ctr.y-(base_sz/2)*sin(base_teta));
-  
+void project_triangle(PVector p, PVector base_ctr, float base_sz, float base_teta) {
+
+  fill(TRI0_COLOR);
+  stroke(TRI0_COLOR);
+
+  PVector p2 = new PVector(base_ctr.x+(base_sz/2)*cos(base_teta), base_ctr.y+(base_sz/2)*sin(base_teta));
+  PVector p3 = new PVector(base_ctr.x-(base_sz/2)*cos(base_teta), base_ctr.y-(base_sz/2)*sin(base_teta));
+
   triangle(p.x, p.y, p2.x, p2.y, p3.x, p3.y);
 }
 
 void setup() {
-  size(canvas_size,canvas_size);
+  size(CANVAS_SIZE, CANVAS_SIZE);
+  textFont(createFont(PFont.list()[0], FONT_SIZE));
+  textSize(FONT_SIZE);
+  textAlign(CENTER);
+  
+  textImage = loadImage("blab_texto.png");
+  // scale image
+  textImage.resize(CANVAS_SIZE,0);
 }
 
-void draw(){
-  if(millis() <= 2000.0){
+void draw() {
+  if (millis() <= 2000.0) {
     generate();
   }
+  image(textImage,0,0);
 }
 
-void keyReleased(){
+void keyReleased() {
   generate();
 }
 
-void mouseClicked(){
+void mouseClicked() {
   generate();
 }
 
-public class Point{
-  
-  public float x;
-  public float y;
-  
-  public Point(float px, float py){
-    x = px;
-    y = py;
-  }
-  
-}
