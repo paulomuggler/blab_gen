@@ -10,6 +10,7 @@ static final int TRI1_COLOR = 0xFF77B794;
 static final int CANVAS_SIZE = 500;
 static final int FONT_SIZE = 256;
 
+PImage textImage;
 
 void generate() {
 
@@ -65,7 +66,9 @@ void generate() {
   base2, teta2);
 
   fill(TEXT_COLOR);
-  text("blab", 0, height-FONT_SIZE, width, FONT_SIZE);
+  // acho que o texto poderia ser dinamico também. mudar a cor dele...
+  //    por enquanto estou usando um png com transparencia
+  //text("blab", 0, height-FONT_SIZE, width, FONT_SIZE);
 }
 
 void project_triangle(PVector p, PVector base_ctr, float base_sz, float base_teta) {
@@ -84,12 +87,17 @@ void setup() {
   textFont(createFont(PFont.list()[0], FONT_SIZE));
   textSize(FONT_SIZE);
   textAlign(CENTER);
+  
+  textImage = loadImage("blab_texto.png");
+  // scale image
+  textImage.resize(CANVAS_SIZE,0);
 }
 
 void draw() {
   if (millis() <= 2000.0) {
     generate();
   }
+  image(textImage,0,0);
 }
 
 void keyReleased() {
