@@ -47,11 +47,11 @@ void generate() {
   float base2 = 200f;
   float teta2 = qteta*random(0,PI/2);
   
-  project_triangle(new Point(x1, y1),
-                        new Point(xB1,yB1), base1, teta1);
+  project_triangle(new PVector(x1, y1),
+                        new PVector(xB1,yB1), base1, teta1);
                         
-  project_triangle(new Point(x1, y1), 
-                        new Point(xB1-(base1/2)*cos(teta1),
+  project_triangle(new PVector(x1, y1), 
+                        new PVector(xB1-(base1/2)*cos(teta1),
                                  (yB1-(base1/2)*sin(teta1))), base2, teta2);
 
   fill(0);
@@ -60,13 +60,13 @@ void generate() {
 
 }
 
-void project_triangle(Point p, Point base_ctr, float base_sz, float base_teta){
+void project_triangle(PVector p, PVector base_ctr, float base_sz, float base_teta){
   
   fill(hvy_clr);
   stroke(hvy_clr);
   
-  Point p2 = new Point(base_ctr.x+(base_sz/2)*cos(base_teta), base_ctr.y+(base_sz/2)*sin(base_teta));
-  Point p3 = new Point(base_ctr.x-(base_sz/2)*cos(base_teta), base_ctr.y-(base_sz/2)*sin(base_teta));
+  PVector p2 = new PVector(base_ctr.x+(base_sz/2)*cos(base_teta), base_ctr.y+(base_sz/2)*sin(base_teta));
+  PVector p3 = new PVector(base_ctr.x-(base_sz/2)*cos(base_teta), base_ctr.y-(base_sz/2)*sin(base_teta));
   
   triangle(p.x, p.y, p2.x, p2.y, p3.x, p3.y);
 }
@@ -89,14 +89,4 @@ void mouseClicked(){
   generate();
 }
 
-public class Point{
-  
-  public float x;
-  public float y;
-  
-  public Point(float px, float py){
-    x = px;
-    y = py;
-  }
-  
-}
+
